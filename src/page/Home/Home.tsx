@@ -12,12 +12,11 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { Suspense } from "react";
 
-import HtmlPic from "../../../public/images.png";
+import HtmlPic from "../../../public/images.svg";
 
 const Modal = dynamic(() => import("@/components/ui/modal"), { ssr: false });
 
 const HomePage = () => {
-  
   const {
     isOpen,
     overall,
@@ -58,12 +57,12 @@ const HomePage = () => {
             isOpen={isOpen}
             onClose={() => handleUpdateModal(false)}
             header={
-            <div className="flex items-center justify-between">
-              <h1 className="font-bold">Update Scores</h1>
-              <div className="w-[7%]">
-                      <Image src={HtmlPic} alt="html picture" />
-                    </div>
-            </div>
+              <div className="flex items-center justify-between">
+                <h1 className="font-bold">Update Scores</h1>
+                <div className="w-[7%]">
+                  <Image src={HtmlPic} alt="html picture" />
+                </div>
+              </div>
             }
             content={
               <div className="flex flex-col gap-8">

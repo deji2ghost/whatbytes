@@ -3,7 +3,7 @@ import CardWrapper from "../CardWrapper/CardWrapper";
 import { HtmlProps } from "./htmlprops";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import HtmlPic from "../../../../public/images.png";
+import HtmlPic from "../../../../public/images.svg";
 
 const HtmlSection: React.FC<HtmlProps> = ({ handleUpdateModal }) => {
   return (
