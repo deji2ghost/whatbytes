@@ -49,7 +49,6 @@ const HomePage = () => {
     const newErrors = { rank: "", percentile: "", currentScore: "" };
     let isValid = true;
 
-    // Validation for Rank
     if (!tempForm.rank) {
       newErrors.rank = "Select a rank";
       isValid = false;
@@ -61,19 +60,17 @@ const HomePage = () => {
       isValid = false;
     }
 
-    // Validation for Current Score
+    
     if (!tempForm.currentScore || tempForm.currentScore < 1 || tempForm.currentScore > 15) {
       newErrors.currentScore = "Pick a number from 1 - 15";
       isValid = false;
     }
 
-    // If there are errors, update the state and stop saving
     if (!isValid) {
       setErrors(newErrors);
       return;
     }
 
-    // If validation passes, update the scores
     setOverall(tempForm);
     setIsopen(false);
   };
@@ -102,30 +99,34 @@ const HomePage = () => {
             percentile={overall.percentile}
             currentScore={overall.currentScore}
           />
-          {/* <CardWrapper>
-            <h1>Comparison Graph</h1>
-            <div className="flex items-center">
-              <p>
-                You scored {overall.percentile} percentile which is lower than
-                the average percentile 72% of all the engineers who took this
-                assessment
-              </p>
-              <div>📈</div>
-            </div>
-            <CustomChart
-              data={sampleData}
-              xAxisKey="name"
-              yAxisKey="score"
-              title="Student Performance"
-              description="Scores and percentiles of students in the last exam"
-              footerText="Performance trending up by 5%"
-            />
-          </CardWrapper> */}
           <Graph
             data={sampleData}
             percentile={overall.percentile}
           />
-          {isOpen && (
+        </div>
+        <div className="w-[40%]">
+          <CardWrapper>
+            <h1>Syllabus Wise Analysis</h1>
+            <div>
+              <div>
+                <h1>Html css</h1>
+                <Progress value={80}/>
+              </div>
+              <div>
+                <h1>Html css</h1>
+                <Progress value={60}/>
+              </div>
+            </div>
+          </CardWrapper>
+          <CardWrapper>
+            <div>
+              <h1>Question Analysis</h1>
+            </div>
+            <ScoreChart currentScore={overall.currentScore}/>
+          </CardWrapper>
+        </div>
+      </div>
+      {isOpen && (
             <Suspense>
               <Modal
                 isOpen={isOpen}
@@ -174,29 +175,6 @@ const HomePage = () => {
               />
             </Suspense>
           )}
-        </div>
-        <div className="w-[40%]">
-          <CardWrapper>
-            <h1>Syllabus Wise Analysis</h1>
-            <div>
-              <div>
-                <h1>Html css</h1>
-                <Progress value={80}/>
-              </div>
-              <div>
-                <h1>Html css</h1>
-                <Progress value={60}/>
-              </div>
-            </div>
-          </CardWrapper>
-          <div>
-            <div>
-              <h1>Question Analysis</h1>
-            </div>
-            <ScoreChart currentScore={overall.currentScore}/>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
