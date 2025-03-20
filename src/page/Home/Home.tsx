@@ -9,7 +9,10 @@ import { Button } from "@/components/ui/button";
 import { sampleData } from "@/data/constants";
 import useScoreHook from "@/hooks/useScoreHook";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import React, { Suspense } from "react";
+
+import HtmlPic from "../../../public/images.png";
 
 const Modal = dynamic(() => import("@/components/ui/modal"), { ssr: false });
 
@@ -54,7 +57,14 @@ const HomePage = () => {
           <Modal
             isOpen={isOpen}
             onClose={() => handleUpdateModal(false)}
-            header="Update Scores"
+            header={
+            <div className="flex items-center justify-between">
+              <h1 className="font-bold">Update Scores</h1>
+              <div className="w-[7%]">
+                      <Image src={HtmlPic} alt="html picture" />
+                    </div>
+            </div>
+            }
             content={
               <div className="flex flex-col gap-8">
                 <FormInput
@@ -66,6 +76,7 @@ const HomePage = () => {
                   value={tempForm.rank}
                   handleChange={handleChange}
                   errors={errors.rank}
+                  isNumeric={true}
                 />
                 <FormInput
                   number={2}
@@ -76,6 +87,7 @@ const HomePage = () => {
                   value={tempForm.percentile}
                   handleChange={handleChange}
                   errors={errors.percentile}
+                  isNumeric={true}
                 />
                 <FormInput
                   number={3}
@@ -86,18 +98,19 @@ const HomePage = () => {
                   value={tempForm.currentScore}
                   handleChange={handleChange}
                   errors={errors.currentScore}
+                  isNumeric={true}
                 />
               </div>
             }
             footer={
-              <div className="flex items-center justify-end">
+              <div className="flex items-center justify-end gap-6">
                 <Button
                   variant={"outline"}
                   onClick={() => handleUpdateModal(false)}
                 >
                   Cancel
                 </Button>
-                <Button onClick={handleSave}>Save</Button>
+                <Button onClick={handleSave}>Save &gt;</Button>
               </div>
             }
           />

@@ -26,14 +26,18 @@ const useScoreHook = () => {
           [overall]
         );
       
-        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const { value, name } = e.target;
-      
-            const parsedValue = name === "rank" ? value : parseInt(value, 10) || 0;
-            setTempForm((prevForm) => ({ ...prevForm, [name]: parsedValue }));
-      
-            setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-        }
+        const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+          const { value, name } = e.target;
+        
+          const parsedValue = value === "" ? "" : name === "rank" ? value : parseInt(value, 10) || "";
+        
+          setTempForm((prevForm) => ({ ...prevForm, [name]: parsedValue }));
+        
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: value === "" ? `${name} is required` : "",
+          }));
+        }, []);
       
         const handleSave = useCallback(() => {
           const newErrors = { rank: "", percentile: "", currentScore: "" };

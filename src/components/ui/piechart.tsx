@@ -1,23 +1,12 @@
-"use client";
 
-import { useEffect, useState } from "react";
 import { PieChart, Pie, Label, Tooltip } from "recharts";
 
 interface ScoreChartProps {
   currentScore: number;
+  maxScore?: number
 }
 
-const ScoreChart: React.FC<ScoreChartProps> = ({ currentScore }) => {
-  const maxScore = 15;
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
+const ScoreChart: React.FC<ScoreChartProps> = ({ currentScore, maxScore = 15 }) => {
   const chartData = [
     { name: "Achieved", value: currentScore, fill: "#633CFF" }, 
     { name: "Remaining", value: maxScore - currentScore, fill: "#ddd" },
@@ -34,32 +23,24 @@ const ScoreChart: React.FC<ScoreChartProps> = ({ currentScore }) => {
           outerRadius={90}
           strokeWidth={2}
         >
-          <Label
-            content={({ viewBox }) => {
-              if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                return (
-                  <text
-                    x={viewBox.cx}
-                    y={viewBox.cy}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                  >
-                    <tspan
-                      x={viewBox.cx}
-                      y={viewBox.cy}
-                      className="fill-foreground text-3xl font-bold"
-                    >
-                      {currentScore}/15
-                    </tspan>
-                  </text>
-                );
-              }
-            }}
+           <Label
+            position="center"
+            content={() => (
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="fill-bluePurple text-3xl font-bold"
+              >
+                {currentScore}/{maxScore}
+              </text>
+            )}
           />
         </Pie>
         <Tooltip />
       </PieChart>
-      <p className="mt-2 text-sm text-gray-600">Your Current Score</p>
+      <p className="mt-2 text-sm text-bluePurple">Your Current Score</p>
     </div>
   );
 };

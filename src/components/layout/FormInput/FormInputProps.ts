@@ -9,4 +9,5 @@ export interface FormInputProps{
     text: string, 
     bold: string,
     errors: string,
+    isNumeric: boolean
 }

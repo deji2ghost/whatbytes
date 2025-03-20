@@ -1,5 +1,6 @@
 export interface ScoreBoardProp{
     icon: string, 
     score: string, 
-    text: string
+    text: string,
+    second?: boolean
 }

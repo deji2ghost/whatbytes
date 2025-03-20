@@ -11,7 +11,7 @@ function Progress({
   ...props
 }: React.ComponentProps<typeof ProgressPrimitive.Root> & { value: number, barColor: string }) {
   return (
-    <div className="relative w-full">
+    <div className="relative w-full flex items-center gap-9">
       <ProgressPrimitive.Root
         data-slot="progress"
         className={cn(
@@ -20,7 +20,6 @@ function Progress({
         )}
         {...props}
       >
-        {/* Full background bar with a lighter shade */}
         <div className="absolute inset-0 w-full h-full rounded-full" />
         
         <ProgressPrimitive.Indicator
@@ -31,7 +30,7 @@ function Progress({
         <p>{value}%</p>
       </ProgressPrimitive.Root>
       <p
-        className="absolute top-1/2 right-0 -translate-y-1/2 text-xs font-semibold text-gray-900"
+        className="font-semibold text-gray-900"
       >
         {value}%
       </p>

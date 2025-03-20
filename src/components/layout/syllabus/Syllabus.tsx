@@ -4,9 +4,9 @@ import CardWrapper from "../CardWrapper/CardWrapper";
 
 const Syllabus = () => {
   return (
-    <CardWrapper>
-      <h1>Syllabus Wise Analysis</h1>
-      <div>
+    <CardWrapper className="flex flex-col gap-5">
+      <h1 className="font-bold">Syllabus Wise Analysis</h1>
+      <div className="flex flex-col gap-5">
         <BarBox
           value={80}
           paragraph="Html Tools, Forms, History"
