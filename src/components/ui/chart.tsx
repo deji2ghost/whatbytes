@@ -1,9 +1,10 @@
 
+import { ChartDataProps } from "@/data/interface";
 import dynamic from "next/dynamic";
 import { XAxis, Tooltip, Legend, Line } from "recharts";
 
 interface ChartProps {
-  data: { name: string; score: number; percentile: number }[];
+  data: ChartDataProps[];
   ticks: number[];
   domain: number[];
   color: string
