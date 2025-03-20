@@ -6,7 +6,7 @@ const ScoreBoard: React.FC<ScoreBoardProp> = ({icon, score, text}) => {
     <div className="flex">
       <h1>{icon}</h1>
       <div className="flex flex-col">
-        <p>{score} / 15</p>
+        <p>{score}</p>
         <p>{text}</p>
       </div>
     </div>

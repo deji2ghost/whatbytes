@@ -1,7 +1,7 @@
 import CustomChart from "@/components/ui/chart";
 import React from "react";
 import CardWrapper from "../CardWrapper/CardWrapper";
-import { GraphProp } from "./Graph";
+import { GraphProp } from "./graphProps";
 
 const Graph: React.FC<GraphProp> = ({percentile, data}) => {
   return (
@@ -16,11 +16,6 @@ const Graph: React.FC<GraphProp> = ({percentile, data}) => {
       </div>
       <CustomChart
         data={data}
-        xAxisKey="name"
-        yAxisKey="score"
-        title="Student Performance"
-        description="Scores and percentiles of students in the last exam"
-        footerText="Performance trending up by 5%"
       />
     </CardWrapper>
   );

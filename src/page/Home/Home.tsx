@@ -1,9 +1,11 @@
 "use client";
+import CardWrapper from "@/components/layout/CardWrapper/CardWrapper";
 import FormInput from "@/components/layout/FormInput/FormInput";
 import Graph from "@/components/layout/Graph/Graph";
 import HtmlSection from "@/components/layout/HtmlSection/HtmlSection";
 import Statistics from "@/components/layout/Statistics/statistics";
 import { Button } from "@/components/ui/button";
+import ScoreChart from "@/components/ui/piechart";
 import { Progress } from "@/components/ui/progress";
 import dynamic from "next/dynamic";
 import React, { Suspense, useState } from "react";
@@ -19,17 +21,61 @@ const HomePage = () => {
     currentScore: 10,
   });
 
-  const handleUpdateModal = () => {
-    console.log("clicked");
-    setIsopen(true);
+  const [errors, setErrors] = useState({
+    rank: "",
+    percentile: "",
+    currentScore: "",
+  });
+
+  const [tempForm, setTempForm] = useState(overall);
+
+  const handleUpdateModal = (value: boolean) => {
+    setIsopen(value);
+    setTempForm(overall);
+    setErrors({ rank: "", percentile: "", currentScore: "" });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setOverall({
-      ...overall,
-      [name]: value,
-    });
+
+    const parsedValue = name === "rank" ? value : parseInt(value, 10) || 0;
+    setTempForm({ ...tempForm, [name]: parsedValue });
+
+    setErrors({ ...errors, [name]: "" });
+
+  };
+
+  const handleSave = () => {
+    const newErrors = { rank: "", percentile: "", currentScore: "" };
+    let isValid = true;
+
+    // Validation for Rank
+    if (!tempForm.rank) {
+      newErrors.rank = "Select a rank";
+      isValid = false;
+    }
+
+    // Validation for Percentile
+    if (!tempForm.percentile || tempForm.percentile < 1 || tempForm.percentile > 100) {
+      newErrors.percentile = "Pick a number from 1 - 100";
+      isValid = false;
+    }
+
+    // Validation for Current Score
+    if (!tempForm.currentScore || tempForm.currentScore < 1 || tempForm.currentScore > 15) {
+      newErrors.currentScore = "Pick a number from 1 - 15";
+      isValid = false;
+    }
+
+    // If there are errors, update the state and stop saving
+    if (!isValid) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // If validation passes, update the scores
+    setOverall(tempForm);
+    setIsopen(false);
   };
 
   const sampleData = [
@@ -40,10 +86,10 @@ const HomePage = () => {
   ];
 
   return (
-    <div>
-      <h1>Skill Test</h1>
-      <div className="flex items-start">
-        <div className="w-[60%]">
+    <div className="flex flex-col gap-4">
+      <h1 className="text-Lg">Skill Test</h1>
+      <div className="flex items-start gap-6">
+        <div className="w-[60%] flex flex-col gap-6">
           <HtmlSection handleUpdateModal={handleUpdateModal} />
           <Statistics
             iconRank="🏆"
@@ -86,15 +132,16 @@ const HomePage = () => {
                 onClose={() => setIsopen(false)}
                 header="Update Scores"
                 content={
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-8">
                     <FormInput
                       number={1}
                       type="text"
                       name="rank"
                       text="Update your"
                       bold="Rank"
-                      value={overall.rank}
+                      value={tempForm.rank}
                       handleChange={handleChange}
+                      errors={errors.rank}
                     />
                     <FormInput
                       number={2}
@@ -102,8 +149,9 @@ const HomePage = () => {
                       name="percentile"
                       text="Update your"
                       bold="Percentile"
-                      value={overall.percentile}
+                      value={tempForm.percentile}
                       handleChange={handleChange}
+                      errors={errors.percentile}
                     />
                     <FormInput
                       number={3}
@@ -111,15 +159,16 @@ const HomePage = () => {
                       name="currentScore"
                       text="Update your"
                       bold="Current Score (out of 15)"
-                      value={overall.currentScore}
+                      value={tempForm.currentScore}
                       handleChange={handleChange}
+                      errors={errors.currentScore}
                     />
                   </div>
                 }
                 footer={
                   <div className="flex items-center justify-end">
-                    <Button>Cancel</Button>
-                    <Button>Save</Button>
+                    <Button variant={"outline"} onClick={()=>handleUpdateModal(false)}>Cancel</Button>
+                    <Button onClick={handleSave}>Save</Button>
                   </div>
                 }
               />
@@ -127,7 +176,7 @@ const HomePage = () => {
           )}
         </div>
         <div className="w-[40%]">
-          <div>
+          <CardWrapper>
             <h1>Syllabus Wise Analysis</h1>
             <div>
               <div>
@@ -139,11 +188,12 @@ const HomePage = () => {
                 <Progress value={60}/>
               </div>
             </div>
-          </div>
+          </CardWrapper>
           <div>
             <div>
-              <h1></h1>
+              <h1>Question Analysis</h1>
             </div>
+            <ScoreChart currentScore={overall.currentScore}/>
           </div>
         </div>
       </div>

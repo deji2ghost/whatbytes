@@ -8,12 +8,12 @@ const Statistics: React.FC<StatisticsProp> = ({rank, percentile, currentScore, t
     <CardWrapper>
       <h1>quick statistics</h1>
       <div className="flex items center">
-        <ScoreBoard icon={iconRank} text={textRank} score={rank} />
-        <ScoreBoard icon={iconPercentile} text={textPercentile} score={percentile} />
+        <ScoreBoard icon={iconRank} text={textRank} score={`${rank}`} />
+        <ScoreBoard icon={iconPercentile} text={textPercentile} score={`${percentile}%`} />
         <ScoreBoard
           icon={iconScore}
           text={textAnswers}
-          score={currentScore}
+          score={`${currentScore}/15`}
         />
       </div>
     </CardWrapper>
