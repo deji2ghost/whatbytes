@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { LineChart, XAxis, Tooltip, Legend, Line } from "recharts";
+import { XAxis, Tooltip, Legend, Line } from "recharts";
 
 interface ChartProps {
   data: { name: string; score: number; percentile: number }[];
