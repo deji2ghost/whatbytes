@@ -19,7 +19,12 @@ const Graph: React.FC<GraphProp> = ({ percentile, data }) => {
           📈
         </div>
       </div>
-      <CustomChart color="#633CFF" domain={[0, 100]} ticks={[0, 25, 50, 75, 100]} data={data} />
+      <div className="hidden lg:block">
+      <CustomChart chartWidth={500} color="#633CFF" domain={[0, 100]} ticks={[0, 25, 50, 75, 100]} data={data} />
+      </div>
+      <div className="block lg:hidden">
+      <CustomChart chartWidth={200} color="#633CFF" domain={[0, 100]} ticks={[0, 25, 50, 75, 100]} data={data} />
+      </div>
     </CardWrapper>
   );
 };

@@ -1,7 +1,5 @@
-"use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { XAxis, Tooltip, Legend, Line } from "recharts";
 
 interface ChartProps {
@@ -9,6 +7,7 @@ interface ChartProps {
   ticks: number[];
   domain: number[];
   color: string
+  chartWidth: number
 }
 
 const DynamicLineChart = dynamic(
@@ -16,22 +15,10 @@ const DynamicLineChart = dynamic(
   { ssr: false }
 );
 
-const CustomChart: React.FC<ChartProps> = ({ data, ticks, domain, color }) => {
-  const [chartWidth, setChartWidth] = useState(500);
-
-  useEffect(() => {
-    const updateWidth = () => {
-      setChartWidth(window.innerWidth < 768 ? 300 : 500);
-    };
-
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [chartWidth]);
+const CustomChart: React.FC<ChartProps> = ({ data, ticks, domain, color, chartWidth }) => {
 
   return (
-    <div className="p-4 rounded-lg">
+    <div className="flex justify-center rounded-lg">
       <DynamicLineChart
         width={chartWidth}
         height={300}
