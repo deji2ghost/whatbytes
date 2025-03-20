@@ -6,7 +6,7 @@ import { StatisticsProp } from "./statisticsProps"
 const Statistics: React.FC<StatisticsProp> = ({rank, percentile, currentScore, textRank, textPercentile, textAnswers, iconRank, iconPercentile, iconScore}) => {
   return (
     <CardWrapper>
-      <h1>quick statistics</h1>
+      <h1 className="font-bold">Quick Statistics</h1>
       <div className="flex items center">
         <ScoreBoard icon={iconRank} text={textRank} score={`${rank}`} />
         <ScoreBoard icon={iconPercentile} text={textPercentile} score={`${percentile}%`} />

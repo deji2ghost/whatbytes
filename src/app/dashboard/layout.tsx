@@ -5,7 +5,7 @@ import Sidebar from "@/components/layout/Sidebar";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-        className=""
+        className="flex flex-col"
       >
         <div className="w-full border border-foreground">
         <Navbar />

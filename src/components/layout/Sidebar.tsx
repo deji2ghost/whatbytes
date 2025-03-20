@@ -11,7 +11,7 @@ const Sidebar = () => {
     console.log(currentPath)
   }, [currentPath])
   return (
-    <div className='w-[15%] border-r border-foreground'>
+    <div className='hidden lg:block w-[15%] border-r border-foreground'>
       {
         sidebar.map((item, index) => {
           const isActive = currentPath === "/" && item === "Skillset";

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { PieChart, Pie, Label, Tooltip } from "recharts";
 
 interface ScoreChartProps {
-  currentScore: number; // Score out of 15
+  currentScore: number;
 }
 
 const ScoreChart: React.FC<ScoreChartProps> = ({ currentScore }) => {
@@ -18,10 +18,9 @@ const ScoreChart: React.FC<ScoreChartProps> = ({ currentScore }) => {
 
   if (!mounted) return null;
 
-  // Data for Pie Chart
   const chartData = [
-    { name: "Achieved", value: currentScore, fill: "#3b82f6" }, // Blue for achieved score
-    { name: "Remaining", value: maxScore - currentScore, fill: "#d1d5db" }, // Grey for remaining
+    { name: "Achieved", value: currentScore, fill: "#633CFF" }, 
+    { name: "Remaining", value: maxScore - currentScore, fill: "#ddd" },
   ];
 
   return (
